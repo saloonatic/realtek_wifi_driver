@@ -1,6 +1,9 @@
 # realtek_wifi_driver
 
 rtl8821ce: v5.12.0.5-0-g5b27a3f.20220615_beta
+
 rtl8821cu: v5.15.9-37-gbc2446319.20230614_COEX20230331-5d5d
+
 rtl8852bu: v1.19.14-127-gd73bd7b91.20240418
+
 rlt8852be: v1.19.11-218-gbe75dfc54.20240717

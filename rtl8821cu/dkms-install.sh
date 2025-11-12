@@ -11,8 +11,11 @@ fi
 DRV_DIR=`pwd`
 DRV_NAME=rtl8821CU
 DRV_VERSION=5.15.9-37
+OPTIONS_FILE="8821cu.conf"
 
 cp -r ${DRV_DIR} /usr/src/${DRV_NAME}-${DRV_VERSION}
+
+cp -f ${OPTIONS_FILE} /etc/modprobe.d
 
 dkms add -m ${DRV_NAME} -v ${DRV_VERSION}
 dkms build -m ${DRV_NAME} -v ${DRV_VERSION}

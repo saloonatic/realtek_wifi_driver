@@ -447,11 +447,13 @@ struct rwnx_vif {
 #ifdef CONFIG_BAND_STEERING
 			u8_l tmp_sta_idx;
 			enum band_type band;
-			u32_l freq;
 			bool start;
 #endif
+			u32_l freq;
             enum nl80211_mesh_power_mode mesh_pm; /* mesh power save mode currently set in firmware */
             enum nl80211_mesh_power_mode next_mesh_pm; /* mesh power save mode for next peer */
+			char ssid[33];//ssid max is 32, but this has one spare for '\0'
+			int ssid_len;
         } ap;
         struct
         {

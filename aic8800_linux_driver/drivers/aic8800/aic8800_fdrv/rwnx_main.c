@@ -3914,6 +3914,12 @@ static int rwnx_cfg80211_start_ap(struct wiphy *wiphy, struct net_device *dev,
 			rwnx_vif->ap.freq = ((settings->chandef).chan)->center_freq;
 			rwnx_vif->ap.tmp_sta_idx = 0;
 #endif
+			rwnx_vif->ap.freq = ((settings->chandef).chan)->center_freq;
+			memcpy(rwnx_vif->ap.ssid,
+				settings->ssid,
+				IEEE80211_MAX_SSID_LEN);
+			rwnx_vif->ap.ssid_len = settings->ssid_len;
+
             sta = &rwnx_hw->sta_table[apm_start_cfm.bcmc_idx];
             sta->valid = true;
             sta->aid = 0;

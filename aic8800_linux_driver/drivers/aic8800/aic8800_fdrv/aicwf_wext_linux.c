@@ -203,9 +203,15 @@ static int aicwf_get_freq(struct net_device *dev,
 		wrqu->freq.e = 1;
 		wrqu->freq.i = ieee80211_frequency_to_channel(rwnx_vif->sta.ap->center_freq);
 	}else{
-		wrqu->freq.m = 2412 * 100000;
-		wrqu->freq.e = 1;
-		wrqu->freq.i = 1;
+		if (RWNX_VIF_TYPE(rwnx_vif) ==	NL80211_IFTYPE_AP) {
+			wrqu->freq.m = rwnx_vif->ap.freq * 100000;
+			wrqu->freq.e = 1;
+			wrqu->freq.i = ieee80211_frequency_to_channel(rwnx_vif->ap.freq);
+		} else{
+			wrqu->freq.m = 2412 * 100000;
+			wrqu->freq.e = 1;
+			wrqu->freq.i = 1;
+		}
 	}
 
 	return 0;
@@ -1052,9 +1058,15 @@ static int aicwf_get_essid(struct net_device *dev,
 	
 	AICWFDBG(LOGTRACE, "%s Enter", __func__);
 
-	wrqu->essid.length = strlen(rwnx_hw->wext_essid);
-	memcpy(extra, rwnx_hw->wext_essid, strlen(rwnx_hw->wext_essid));
-	wrqu->essid.flags = 1;
+    if (RWNX_VIF_TYPE(rwnx_vif) ==  NL80211_IFTYPE_AP) {
+		wrqu->essid.length = rwnx_vif->ap.ssid_len;
+		memcpy(extra, rwnx_vif->ap.ssid, rwnx_vif->ap.ssid_len);
+		wrqu->essid.flags = 1;
+    } else{
+		wrqu->essid.length = strlen(rwnx_hw->wext_essid);
+		memcpy(extra, rwnx_hw->wext_essid, strlen(rwnx_hw->wext_essid));
+		wrqu->essid.flags = 1;
+    }
 
 
 	return ret;
